@@ -1,0 +1,67 @@
+# Diretórios de build
+/bin/
+/build/
+/target/
+
+# Diretórios de dependências (em alguns setups)
+*/.classpath
+*/.project
+*/.settings/
+
+# IDEs
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse
+*.launch
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+.metadata/
+
+# NetBeans
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VSCode
+.vscode/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.class
+*.war
+*.jar
+*.ear
+*.db
+*.sqlite
+*.h2.db
+*.lock
+*.pid
+
+# Arquivos de cache
+.gradle/
+/mvnw
+/mvnw.cmd
+/.mvn/
+
+# Arquivos de ambiente (variáveis locais, secrets)
+.env
+*.env
+*.properties.local
+application-local.properties
+application-dev.properties
