@@ -4,6 +4,7 @@ import com.desafioSmileGo.domain.model.Subscription;
 import com.desafioSmileGo.domain.model.enums.Plan;
 import com.desafioSmileGo.domain.model.enums.SubscriptionStatus;
 import com.desafioSmileGo.domain.repository.SubscriptionRepository;
+import com.desafioSmileGo.infrastructure.api.dto.SubscriptionsReportResponse;
 import com.desafioSmileGo.infrastructure.persistence.entity.SubscriptionEntity;
 import com.desafioSmileGo.infrastructure.persistence.mapper.SubscriptionEntityMapper;
 import com.desafioSmileGo.infrastructure.persistence.repository.JpaSubscriptionRepository;
@@ -43,5 +44,10 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
     @Override
     public void deleteById(Long id) {
         jpaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<SubscriptionsReportResponse> getSubscriptionsReport(String clientId, LocalDateTime startDate, LocalDateTime endDate) {
+        return jpaRepository.getSubscriptionsReport(clientId, startDate, endDate);
     }
 }

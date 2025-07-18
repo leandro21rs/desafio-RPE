@@ -2,6 +2,7 @@ package com.desafioSmileGo.infrastructure.persistence.repository;
 
 import com.desafioSmileGo.domain.model.enums.Plan;
 import com.desafioSmileGo.domain.model.enums.SubscriptionStatus;
+import com.desafioSmileGo.infrastructure.api.dto.SubscriptionsReportResponse;
 import com.desafioSmileGo.infrastructure.persistence.entity.SubscriptionEntity;
 
 import java.time.LocalDateTime;
@@ -28,4 +29,16 @@ public interface JpaSubscriptionRepository extends JpaRepository<SubscriptionEnt
       @Param("createdStartDate") LocalDateTime createdStartDate,
       @Param("createdEndDate") LocalDateTime createdEndDate
   );
+
+      @Query("SELECT new com.desafioSmileGo.infrastructure.api.dto.SubscriptionsReportResponse(" +
+            "s.plan, s.status, COUNT(s)) " +
+            "FROM SubscriptionEntity s " +
+            "WHERE (:clientId IS NULL OR s.clientId = :clientId) " +
+            "AND (:startDate IS NULL OR s.createdAt >= :startDate) " +
+            "AND (:endDate IS NULL OR s.createdAt <= :endDate) " +
+            "GROUP BY s.plan, s.status")
+    List<SubscriptionsReportResponse> getSubscriptionsReport(
+            @Param("clientId") String clientId,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
 }

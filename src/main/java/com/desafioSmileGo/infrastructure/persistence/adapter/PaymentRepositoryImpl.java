@@ -4,6 +4,7 @@ import com.desafioSmileGo.domain.model.Payment;
 import com.desafioSmileGo.domain.model.enums.PaymentMethod;
 import com.desafioSmileGo.domain.model.enums.PaymentStatus;
 import com.desafioSmileGo.domain.repository.PaymentRepository;
+import com.desafioSmileGo.infrastructure.api.dto.PaymentReportResponse;
 import com.desafioSmileGo.infrastructure.persistence.entity.PaymentEntity;
 import com.desafioSmileGo.infrastructure.persistence.mapper.PaymentEntityMapper;
 import com.desafioSmileGo.infrastructure.persistence.repository.JpaPaymentRepository;
@@ -40,4 +41,10 @@ public class PaymentRepositoryImpl implements PaymentRepository {
             .map(PaymentEntityMapper::toDomain)
             .toList();
     }
+
+    @Override
+    @Cacheable(value = "paymentsReport", key = "'report'")
+    public List<PaymentReportResponse> getPaymentReport(Long subscriptionId, LocalDateTime startDate, LocalDateTime endDate) {
+    return jpaRepository.getPaymentReport(subscriptionId, startDate, endDate);
+}
 }

@@ -7,6 +7,7 @@ import com.desafioSmileGo.domain.model.enums.SubscriptionStatus;
 import com.desafioSmileGo.infrastructure.api.dto.SubscriptionRequest;
 import com.desafioSmileGo.infrastructure.api.dto.SubscriptionResponse;
 import com.desafioSmileGo.infrastructure.api.dto.SubscriptionUpdatePlanRequest;
+import com.desafioSmileGo.infrastructure.api.dto.SubscriptionsReportResponse;
 import com.desafioSmileGo.infrastructure.api.mapper.SubscriptionDtoMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -33,6 +34,7 @@ public class SubscriptionController {
     private final CancelSubscriptionUseCase cancelSubscriptionUseCase;
     private final UpdateSubscriptionUseCase updateSubscriptionUseCase;
     private final GetSubscriptionByIdUseCase getSubscriptionByIdUseCase;
+    private final SubscriptionsReportUseCase subscriptionsReportUseCase;
 
     @PostMapping
     @Operation(summary = "Criar nova assinatura")
@@ -46,18 +48,16 @@ public class SubscriptionController {
     @GetMapping("/find")
     @Operation(summary = "Listar assinaturas com filtros")
     public ResponseEntity<List<SubscriptionResponse>> list(
-        @RequestParam(required = false) Long id,
-        @RequestParam(required = false) String clientId,
-        @RequestParam(required = false) Plan plan,
-        @RequestParam(required = false) SubscriptionStatus status,
-        @RequestParam(required = false) LocalDateTime createdStartDate,
-        @RequestParam(required = false) LocalDateTime createdEndDate
-    ) {
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String clientId,
+            @RequestParam(required = false) Plan plan,
+            @RequestParam(required = false) SubscriptionStatus status,
+            @RequestParam(required = false) LocalDateTime createdStartDate,
+            @RequestParam(required = false) LocalDateTime createdEndDate) {
         return ResponseEntity.ok(
                 listUseCase.execute(id, clientId, plan, status, createdStartDate, createdEndDate).stream()
                         .map(SubscriptionDtoMapper::toResponse)
-                        .toList()
-        );
+                        .toList());
     }
 
     @GetMapping("/{id}")
@@ -86,5 +86,16 @@ public class SubscriptionController {
         Subscription subscriptionCancelled = cancelSubscriptionUseCase.execute(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(SubscriptionDtoMapper.toResponse(subscriptionCancelled));
+    }
+
+    @GetMapping("/report")
+    @Operation(summary = "Relatório de assinaturas")
+    public ResponseEntity<List<SubscriptionsReportResponse>> getSubscriptionsReport(
+            @RequestParam(required = false) String clientId,
+            @RequestParam(required = false) LocalDateTime startDate,
+            @RequestParam(required = false) LocalDateTime endDate) {
+        List<SubscriptionsReportResponse> report = subscriptionsReportUseCase.execute(clientId, startDate, endDate);
+
+        return ResponseEntity.status(HttpStatus.OK).body(report);
     }
 }
