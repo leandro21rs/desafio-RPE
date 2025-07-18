@@ -16,14 +16,6 @@ public class PaymentDtoMapper {
 
     }
 
-    public static PaymentEntity toEntity(PaymentRequest req) {
-    return PaymentEntity.builder()
-            .subscriptionId(req.getSubscriptionId())
-            .amount(req.getAmount())
-            .method(PaymentMethod.valueOf(req.getMethod()))
-            .build();
-    }
-
     public static PaymentResponse toResponse(Payment payment) {
         return PaymentResponse.builder()
                 .id(payment.getId())

@@ -14,6 +14,6 @@ public class SubscriptionsReportResponse implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private Plan plan;
-  SubscriptionStatus status;
+  private SubscriptionStatus status;
   private Long count;
 }

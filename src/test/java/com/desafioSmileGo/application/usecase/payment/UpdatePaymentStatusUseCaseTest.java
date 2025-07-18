@@ -185,4 +185,23 @@ class UpdatePaymentStatusUseCaseTest {
         Mockito.verify(paymentRepository).findById(paymentId);
         Mockito.verify(paymentStatusProducer).send(Mockito.any(PaymentStatusEvent.class));
     }
+
+    @Test
+    void shouldUpdatePayment() {
+        // Arrange
+        Payment paymentMock = new Payment();
+        paymentMock.setId("MOCK");
+        paymentMock.setStatus(PaymentStatus.PENDING);
+
+        Mockito.when(paymentRepository.findById(Mockito.any())).thenReturn(Optional.of(paymentMock));
+
+        //Act
+        Payment payment = updatePaymentStatusUseCase.execute("MOCK", PaymentStatus.APPROVED);
+
+        //Assert
+        Assertions.assertNotNull(payment);
+        Assertions.assertEquals(PaymentStatus.APPROVED, payment.getStatus());
+
+        Mockito.verify(paymentRepository).findById("MOCK");
+    }
 } 

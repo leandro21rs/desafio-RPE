@@ -5,12 +5,28 @@ import com.desafioSmileGo.domain.model.enums.Plan;
 import com.desafioSmileGo.domain.model.enums.SubscriptionStatus;
 import com.desafioSmileGo.infrastructure.api.dto.SubscriptionRequest;
 import com.desafioSmileGo.infrastructure.api.dto.SubscriptionResponse;
+import com.desafioSmileGo.infrastructure.api.dto.SubscriptionUpdatePlanRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
 class SubscriptionDtoMapperTest {
+
+
+    @Test
+    void shouldMapSubscriptionUpdatePlanRequestToDomain() {
+        // Arrange
+        SubscriptionUpdatePlanRequest subscriptionUpdatePlanRequest = new SubscriptionUpdatePlanRequest();
+        subscriptionUpdatePlanRequest.setPlan(Plan.ENTERPRISE);
+
+        // Act
+        Subscription result = SubscriptionDtoMapper.toDomain(subscriptionUpdatePlanRequest);
+
+        // Assert
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(Plan.ENTERPRISE, result.getPlan());
+    }
 
     @Test
     void shouldMapSubscriptionRequestToDomain() {

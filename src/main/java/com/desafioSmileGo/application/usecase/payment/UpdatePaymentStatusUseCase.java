@@ -33,7 +33,7 @@ public class UpdatePaymentStatusUseCase {
         return payment;
     }
 
-    public void execute(String paymentId, PaymentStatus status) {
+    public Payment execute(String paymentId, PaymentStatus status) {
         Payment payment = repository.findById(paymentId)
                 .orElseThrow(() -> new NotFoundException("Payment not found"));
 
@@ -41,5 +41,7 @@ public class UpdatePaymentStatusUseCase {
         payment.setUpdatedAt(LocalDateTime.now());
 
         repository.save(payment);
+
+        return payment;
     }
 }
