@@ -47,6 +47,7 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
     }
 
     @Override
+    @Cacheable(value = "subscriptionsReport", key = "'subscriptions'")
     public List<SubscriptionsReportResponse> getSubscriptionsReport(String clientId, LocalDateTime startDate, LocalDateTime endDate) {
         return jpaRepository.getSubscriptionsReport(clientId, startDate, endDate);
     }
