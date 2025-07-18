@@ -48,16 +48,23 @@ O projeto adota a **Arquitetura Hexagonal**, também conhecida como **Clean Arch
 ### Passos
 
 ```bash
+Passos
 # 1. Clonar o projeto
 
+--comment : Poderiamos usar o docker composer para configurar no projeto, porem deixei separado ficar mais semantico.
+--preconditions: Apos installar e executar o docker desktop ( facilita a visualizacao das imagens).
 # 2. Executar no terminal o comando para subir a imagem do RabbitMq
 docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 
 # 2. Executar no terminal o comando para subir a imagem do Redis
 docker run --name redis -p 6379:6379 -d redis
 
-# 3. Executar com Maven
+--comment : Pode ser usado tambem uma IDE como Intellij para o start
+# 3. Executar com Maven 
 ./mvnw spring-boot:run
+
+# 4. Use a collection Desafio.json ou swagger para executar os end-points
+
 ```
 
 ### Informações
