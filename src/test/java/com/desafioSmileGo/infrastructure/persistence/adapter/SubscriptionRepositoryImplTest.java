@@ -131,10 +131,18 @@ class SubscriptionRepositoryImplTest {
 
         List<SubscriptionEntity> entities = Arrays.asList(entity1, entity2);
 
-        Mockito.when(jpaSubscriptionRepository.findAll()).thenReturn(entities);
+        // Mock do método findByFilters do JpaSubscriptionRepository
+        Mockito.when(jpaSubscriptionRepository.findByFilters(
+                Mockito.eq(null), 
+                Mockito.eq(null), 
+                Mockito.eq(null),
+                Mockito.eq(null),
+                Mockito.eq(null),
+                Mockito.eq(null) 
+        )).thenReturn(entities);
 
         // Act
-        List<Subscription> result = subscriptionRepository.findAll();
+        List<Subscription> result = subscriptionRepository.findByFilters(null, null, null, null, null, null);
 
         // Assert
         Assertions.assertNotNull(result);
@@ -142,7 +150,7 @@ class SubscriptionRepositoryImplTest {
         Assertions.assertEquals(1L, result.get(0).getId());
         Assertions.assertEquals(2L, result.get(1).getId());
 
-        Mockito.verify(jpaSubscriptionRepository).findAll();
+        Mockito.verify(jpaSubscriptionRepository).findByFilters(null, null, null, null, null, null);
     }
 
     @Test
@@ -183,4 +191,4 @@ class SubscriptionRepositoryImplTest {
 
         Mockito.verify(jpaSubscriptionRepository).save(Mockito.any(SubscriptionEntity.class));
     }
-} 
+}

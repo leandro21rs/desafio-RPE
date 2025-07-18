@@ -2,6 +2,8 @@ package com.desafioSmileGo.infrastructure.api.controller;
 
 import com.desafioSmileGo.application.usecase.subscription.*;
 import com.desafioSmileGo.domain.model.Subscription;
+import com.desafioSmileGo.domain.model.enums.Plan;
+import com.desafioSmileGo.domain.model.enums.SubscriptionStatus;
 import com.desafioSmileGo.infrastructure.api.dto.SubscriptionRequest;
 import com.desafioSmileGo.infrastructure.api.dto.SubscriptionResponse;
 import com.desafioSmileGo.infrastructure.api.dto.SubscriptionUpdatePlanRequest;
@@ -15,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SecurityRequirement(name = "bearerAuth")
@@ -39,11 +43,18 @@ public class SubscriptionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(SubscriptionDtoMapper.toResponse(created));
     }
 
-    @GetMapping
-    @Operation(summary = "Listar assinaturas")
-    public ResponseEntity<List<SubscriptionResponse>> list() {
+    @GetMapping("/find")
+    @Operation(summary = "Listar assinaturas com filtros")
+    public ResponseEntity<List<SubscriptionResponse>> list(
+        @RequestParam(required = false) Long id,
+        @RequestParam(required = false) String clientId,
+        @RequestParam(required = false) Plan plan,
+        @RequestParam(required = false) SubscriptionStatus status,
+        @RequestParam(required = false) LocalDateTime createdStartDate,
+        @RequestParam(required = false) LocalDateTime createdEndDate
+    ) {
         return ResponseEntity.ok(
-                listUseCase.execute().stream()
+                listUseCase.execute(id, clientId, plan, status, createdStartDate, createdEndDate).stream()
                         .map(SubscriptionDtoMapper::toResponse)
                         .toList()
         );

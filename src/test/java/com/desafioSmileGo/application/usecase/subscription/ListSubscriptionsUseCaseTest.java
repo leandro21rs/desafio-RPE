@@ -55,10 +55,11 @@ class ListSubscriptionsUseCaseTest {
                 .build();
 
         List<Subscription> subscriptions = Arrays.asList(subscription1, subscription2);
-        Mockito.when(subscriptionRepository.findAll()).thenReturn(subscriptions);
+        Mockito.when(subscriptionRepository.findByFilters(
+                Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null))).thenReturn(subscriptions);
 
         // Act
-        List<Subscription> result = listSubscriptionsUseCase.execute();
+        List<Subscription> result = listSubscriptionsUseCase.execute(null, null, null, null, null, null);
 
         // Assert
         Assertions.assertNotNull(result);
@@ -70,22 +71,23 @@ class ListSubscriptionsUseCaseTest {
         Assertions.assertEquals(Plan.BASIC, result.get(0).getPlan());
         Assertions.assertEquals(Plan.PREMIUM, result.get(1).getPlan());
 
-        Mockito.verify(subscriptionRepository).findAll();
+        Mockito.verify(subscriptionRepository).findByFilters(null, null, null, null, null, null);
     }
 
     @Test
     void shouldReturnEmptyListWhenNoSubscriptions() {
         // Arrange
-        Mockito.when(subscriptionRepository.findAll()).thenReturn(Arrays.asList());
+        Mockito.when(subscriptionRepository.findByFilters(
+                Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null))).thenReturn(Arrays.asList());
 
         // Act
-        List<Subscription> result = listSubscriptionsUseCase.execute();
+        List<Subscription> result = listSubscriptionsUseCase.execute(null, null, null, null, null, null);
 
         // Assert
         Assertions.assertNotNull(result);
         Assertions.assertTrue(result.isEmpty());
 
-        Mockito.verify(subscriptionRepository).findAll();
+        Mockito.verify(subscriptionRepository).findByFilters(null, null, null, null, null, null);
     }
 
     @Test
@@ -114,10 +116,11 @@ class ListSubscriptionsUseCaseTest {
                 .build();
 
         List<Subscription> subscriptions = Arrays.asList(activeSubscription, cancelledSubscription);
-        Mockito.when(subscriptionRepository.findAll()).thenReturn(subscriptions);
+        Mockito.when(subscriptionRepository.findByFilters(
+                Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null))).thenReturn(subscriptions);
 
         // Act
-        List<Subscription> result = listSubscriptionsUseCase.execute();
+        List<Subscription> result = listSubscriptionsUseCase.execute(null, null, null, null, null, null);
 
         // Assert
         Assertions.assertNotNull(result);
@@ -125,6 +128,6 @@ class ListSubscriptionsUseCaseTest {
         Assertions.assertEquals(SubscriptionStatus.ACTIVE, result.get(0).getStatus());
         Assertions.assertEquals(SubscriptionStatus.CANCELLED, result.get(1).getStatus());
 
-        Mockito.verify(subscriptionRepository).findAll();
+        Mockito.verify(subscriptionRepository).findByFilters(null, null, null, null, null, null );
     }
-} 
+}
