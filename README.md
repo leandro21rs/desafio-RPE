@@ -75,6 +75,7 @@ docker run --name redis -p 6379:6379 -d redis
 - user: guest
 - password: guest
 
+--preconditions: Apos acessar a URL alterar JDBC URL: "jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE".
 # 2. Para acessar o painel do banco de dadoos H2 basta acessar a url:
 - http://localhost:8080/h2-console
 - user: sa
