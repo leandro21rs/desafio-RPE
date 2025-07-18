@@ -1,6 +1,8 @@
 package com.desafioSmileGo.infrastructure.persistence.adapter;
 
 import com.desafioSmileGo.domain.model.Payment;
+import com.desafioSmileGo.domain.model.enums.PaymentMethod;
+import com.desafioSmileGo.domain.model.enums.PaymentStatus;
 import com.desafioSmileGo.domain.repository.PaymentRepository;
 import com.desafioSmileGo.infrastructure.persistence.entity.PaymentEntity;
 import com.desafioSmileGo.infrastructure.persistence.mapper.PaymentEntityMapper;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,9 +35,9 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
     @Override
     @Cacheable(value = "payments", key = "'allPayments'")
-    public List<Payment> findAll() {
-        return jpaRepository.findAll().stream()
-                .map(PaymentEntityMapper::toDomain)
-                .toList();
+    public List<Payment> findByFilters(String id, Long subscriptionId, PaymentStatus status, PaymentMethod method, LocalDateTime startDate, LocalDateTime endDate) {
+        return jpaRepository.findByFilters(id, subscriptionId, status, method, startDate, endDate).stream()
+            .map(PaymentEntityMapper::toDomain)
+            .toList();
     }
 }

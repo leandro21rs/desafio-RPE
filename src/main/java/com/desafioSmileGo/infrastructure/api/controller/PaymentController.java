@@ -5,6 +5,8 @@ import com.desafioSmileGo.application.usecase.payment.GetPaymentByIdUseCase;
 import com.desafioSmileGo.application.usecase.payment.ListPaymentsUseCase;
 import com.desafioSmileGo.application.usecase.payment.UpdatePaymentStatusUseCase;
 import com.desafioSmileGo.domain.model.Payment;
+import com.desafioSmileGo.domain.model.enums.PaymentMethod;
+import com.desafioSmileGo.domain.model.enums.PaymentStatus;
 import com.desafioSmileGo.infrastructure.api.dto.PaymentRequest;
 import com.desafioSmileGo.infrastructure.api.dto.PaymentResponse;
 import com.desafioSmileGo.infrastructure.api.dto.PaymentUpdateStatusRequest;
@@ -45,9 +47,17 @@ public class PaymentController {
     }
 
     @GetMapping
-    @Operation(summary = "Busca todos os pagamentos")
-    public ResponseEntity<List<PaymentResponse>> findAllPayments() {
-        List<Payment> list = listPaymentsUseCase.execute();
+    @Operation(summary = "Busca pagamentos por filtros")
+    public ResponseEntity<List<PaymentResponse>> findAllPayments(
+        @RequestParam(required = false) String id,
+        @RequestParam(required = false) Long subscriptionId,
+        @RequestParam(required = false) PaymentStatus status,
+        @RequestParam(required = false) PaymentMethod method,
+        @RequestParam(required = false) LocalDateTime startDate,
+        @RequestParam(required = false) LocalDateTime endDate
+
+    ) {
+        List<Payment> list = listPaymentsUseCase.execute(id, subscriptionId, status, method, startDate, endDate);
         return ResponseEntity.ok(
                 list.stream().map(PaymentDtoMapper::toResponse).toList()
         );

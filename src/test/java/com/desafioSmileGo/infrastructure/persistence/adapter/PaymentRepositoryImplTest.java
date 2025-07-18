@@ -117,7 +117,7 @@ class PaymentRepositoryImplTest {
     }
 
     @Test
-    void shouldFindAllPaymentsWithSuccess() {
+    void shouldFindPaymentsByFiltersWithSuccess() {
         // Arrange
         PaymentEntity entity1 = new PaymentEntity();
         entity1.setId("payment-1");
@@ -135,10 +135,20 @@ class PaymentRepositoryImplTest {
 
         List<PaymentEntity> entities = Arrays.asList(entity1, entity2);
 
-        Mockito.when(jpaPaymentRepository.findAll()).thenReturn(entities);
+        // Mock do método findByFilters do JpaPaymentRepository
+        Mockito.when(jpaPaymentRepository.findByFilters(
+                Mockito.eq(null), // id
+                Mockito.eq(null), // subscriptionId
+                Mockito.eq(null), // status
+                Mockito.eq(null), // method
+                Mockito.eq(null), // startDate
+                Mockito.eq(null)  // endDate
+        )).thenReturn(entities);
 
         // Act
-        List<Payment> result = paymentRepository.findAll();
+        List<Payment> result = paymentRepository.findByFilters(
+                null, null, null, null, null, null
+        );
 
         // Assert
         Assertions.assertNotNull(result);
@@ -146,6 +156,9 @@ class PaymentRepositoryImplTest {
         Assertions.assertEquals("payment-1", result.get(0).getId());
         Assertions.assertEquals("payment-2", result.get(1).getId());
 
-        Mockito.verify(jpaPaymentRepository).findAll();
+        Mockito.verify(jpaPaymentRepository).findByFilters(
+                Mockito.eq(null), Mockito.eq(null), Mockito.eq(null),
+                Mockito.eq(null), Mockito.eq(null), Mockito.eq(null)
+        );
     }
 } 

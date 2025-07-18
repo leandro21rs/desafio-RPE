@@ -27,11 +27,11 @@ class ListPaymentsUseCaseTest {
     }
 
     @Test
-    void GetListPaymentWithSuccess() {
+    void getListPaymentWithFiltersSuccess() {
         Payment paymentMock1 = Payment.builder()
                 .id("UUID-1")
                 .subscriptionId(1L)
-                .status(PaymentStatus.PENDING)
+                .status(PaymentStatus.APPROVED)
                 .build();
 
         Payment paymentMock2 = Payment.builder()
@@ -40,11 +40,20 @@ class ListPaymentsUseCaseTest {
                 .status(PaymentStatus.PENDING)
                 .build();
 
-        Mockito.when(paymentRepository.findAll()).thenReturn(List.of(paymentMock1, paymentMock2));
+        Mockito.when(paymentRepository.findByFilters(
+                Mockito.eq(null), 
+                Mockito.eq(null), 
+                Mockito.eq(PaymentStatus.PENDING), 
+                Mockito.eq(null), 
+                Mockito.eq(null), 
+                Mockito.eq(null) 
+        )).thenReturn(List.of(paymentMock1, paymentMock2));
 
-        List<Payment> payments = listPaymentsUseCase.execute();
+        List<Payment> payments = listPaymentsUseCase.execute(
+                null, null, PaymentStatus.PENDING, null, null, null
+        );
 
         Assertions.assertNotNull(payments);
-        Assertions.assertEquals(payments.size(), 2);
+        Assertions.assertEquals(2, payments.size());
     }
 }
