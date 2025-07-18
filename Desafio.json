@@ -39,13 +39,244 @@
       }
     },
     {
-      "name": "Subscription",
+      "name": "Payments",
       "item": [
         {
-          "name": "Criar subscription",
+          "name": "Atualiza status de uma pagamento",
+          "event": [],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjc4OTkwOCwiZXhwIjoxNzUyNzkzNTA4fQ.PnbrpmUuJQAujAVltMG5ENDyNnuP-6evaVla97qTi9s",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8080/payments/update",
+              "protocol": "http",
+              "host": [
+                "localhost:8080"
+              ],
+              "path": [
+                "payments",
+                "update"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{ \n  \"id\": \"512f67a6-d985-4991-984c-d1769acdbf8a\",\n  \"status\": \"APPROVED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Busca pagamentos",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjg0OTQ3MiwiZXhwIjoxNzUyODUzMDcyfQ.XGwxJkPkUJGpu63tcqMTDUnbVLlVbOwoG5BwI7SulJI",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "payment-id",
+                "value": "512f67a6-d985-4991-984c-d1769acdbf8a",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8080/payments/find",
+              "protocol": "http",
+              "host": [
+                "localhost:8080"
+              ],
+              "path": [
+                "payments",
+                "find"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Busca todos pagamentos",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjg0OTQ3MiwiZXhwIjoxNzUyODUzMDcyfQ.XGwxJkPkUJGpu63tcqMTDUnbVLlVbOwoG5BwI7SulJI",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8080/payments?id=d4427b25-4652-45e9-bc36-062e4f78a2cc&subscriptionId=1&status=APPROVED&method=CREDIT_CARD&startDate=2025-07-17T00:00:00&endDate=2025-07-19T00:00:00",
+              "protocol": "http",
+              "host": [
+                "localhost:8080"
+              ],
+              "path": [
+                "payments"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "d4427b25-4652-45e9-bc36-062e4f78a2cc"
+                },
+                {
+                  "key": "subscriptionId",
+                  "value": "1"
+                },
+                {
+                  "key": "status",
+                  "value": "APPROVED"
+                },
+                {
+                  "key": "method",
+                  "value": "CREDIT_CARD"
+                },
+                {
+                  "key": "startDate",
+                  "value": "2025-07-17T00:00:00"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2025-07-19T00:00:00"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Criar pagamentos",
           "event": [],
           "request": {
             "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjg1NDcxMSwiZXhwIjoxNzUyODU4MzExfQ.Kyh65zdNg1I0pqw-ydABcBjqNj7sYvI4YLg5A6Pz_L0",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8080/payments",
+              "protocol": "http",
+              "host": [
+                "localhost:8080"
+              ],
+              "path": [
+                "payments"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subscriptionId\": 5,\n  \"amount\": 10.99,\n  \"method\": \"DEBIT_CARD\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Relatório de pagamentos",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjg1NDcxMSwiZXhwIjoxNzUyODU4MzExfQ.Kyh65zdNg1I0pqw-ydABcBjqNj7sYvI4YLg5A6Pz_L0",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8080/payments/report?subscriptionId=5&startDate=2025-07-15T00:00:00&endDate=2025-07-19T00:00:00",
+              "protocol": "http",
+              "host": [
+                "localhost:8080"
+              ],
+              "path": [
+                "payments",
+                "report"
+              ],
+              "query": [
+                {
+                  "key": "subscriptionId",
+                  "value": "5"
+                },
+                {
+                  "key": "startDate",
+                  "value": "2025-07-15T00:00:00"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2025-07-19T00:00:00"
+                }
+              ],
+              "variable": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subscription",
+      "item": [
+        {
+          "name": "Atualiza Plano de uma subscription",
+          "event": [],
+          "request": {
+            "method": "PUT",
             "header": [
               {
                 "key": "Authorization",
@@ -65,20 +296,23 @@
             },
             "description": "",
             "url": {
-              "raw": "http://localhost:8080/subscriptions",
+              "raw": "http://localhost:8080/subscriptions/3/plan/update",
               "protocol": "http",
               "host": [
                 "localhost:8080"
               ],
               "path": [
-                "subscriptions"
+                "subscriptions",
+                "3",
+                "plan",
+                "update"
               ],
               "query": [],
               "variable": []
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"clientId\": \"057295sss0\",\n  \"plan\": \"BASIC\"\n}",
+              "raw": "{\n  \"plan\": \"PREMIUM\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -142,7 +376,127 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjc4OTkwOCwiZXhwIjoxNzUyNzkzNTA4fQ.PnbrpmUuJQAujAVltMG5ENDyNnuP-6evaVla97qTi9s",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjg0OTQ3MiwiZXhwIjoxNzUyODUzMDcyfQ.XGwxJkPkUJGpu63tcqMTDUnbVLlVbOwoG5BwI7SulJI",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8080/subscriptions/find?id=7&clientId=65&plan=ENTERPRISE&status=ACTIVE&createdStartDate=2025-07-15T00:00:00&createdEndDate=2025-07-19T00:00:00",
+              "protocol": "http",
+              "host": [
+                "localhost:8080"
+              ],
+              "path": [
+                "subscriptions",
+                "find"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "7"
+                },
+                {
+                  "key": "clientId",
+                  "value": "65"
+                },
+                {
+                  "key": "plan",
+                  "value": "ENTERPRISE"
+                },
+                {
+                  "key": "status",
+                  "value": "ACTIVE"
+                },
+                {
+                  "key": "createdStartDate",
+                  "value": "2025-07-15T00:00:00"
+                },
+                {
+                  "key": "createdEndDate",
+                  "value": "2025-07-19T00:00:00"
+                }
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Cancela uma subscription",
+          "event": [],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjg1ODg3MCwiZXhwIjoxNzUyODYyNDcwfQ.bYcBE7_WS-rZQyTvKd-fZGKrzCu8U1OtX2z11thgHTA",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8080/subscriptions/6/cancelled",
+              "protocol": "http",
+              "host": [
+                "localhost:8080"
+              ],
+              "path": [
+                "subscriptions",
+                "6",
+                "cancelled"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Criar subscription",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjg1ODg3MCwiZXhwIjoxNzUyODYyNDcwfQ.bYcBE7_WS-rZQyTvKd-fZGKrzCu8U1OtX2z11thgHTA",
                 "disabled": false,
                 "type": "default"
               },
@@ -171,7 +525,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "",
+              "raw": "{\n  \"clientId\": \"7\",\n  \"plan\": \"BASIC\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -181,168 +535,14 @@
           }
         },
         {
-          "name": "Cancela uma subscription",
-          "event": [],
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjc4OTkwOCwiZXhwIjoxNzUyNzkzNTA4fQ.PnbrpmUuJQAujAVltMG5ENDyNnuP-6evaVla97qTi9s",
-                "disabled": false,
-                "type": "default"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "disabled": false,
-                "type": "default"
-              }
-            ],
-            "auth": {
-              "type": "noauth"
-            },
-            "description": "",
-            "url": {
-              "raw": "http://localhost:8080/subscriptions/1/cancelled",
-              "protocol": "http",
-              "host": [
-                "localhost:8080"
-              ],
-              "path": [
-                "subscriptions",
-                "1",
-                "cancelled"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
-        },
-        {
-          "name": "Atualiza Plano de uma subscription",
-          "event": [],
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjc4OTkwOCwiZXhwIjoxNzUyNzkzNTA4fQ.PnbrpmUuJQAujAVltMG5ENDyNnuP-6evaVla97qTi9s",
-                "disabled": false,
-                "type": "default"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "disabled": false,
-                "type": "default"
-              }
-            ],
-            "auth": {
-              "type": "noauth"
-            },
-            "description": "",
-            "url": {
-              "raw": "http://localhost:8080/subscriptions/3/plan/update",
-              "protocol": "http",
-              "host": [
-                "localhost:8080"
-              ],
-              "path": [
-                "subscriptions",
-                "3",
-                "plan",
-                "update"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"plan\": \"PREMIUM\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Payments",
-      "item": [
-        {
-          "name": "Criar pagamentos",
-          "event": [],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "disabled": false,
-                "type": "default"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjc4OTkwOCwiZXhwIjoxNzUyNzkzNTA4fQ.PnbrpmUuJQAujAVltMG5ENDyNnuP-6evaVla97qTi9s",
-                "disabled": false,
-                "type": "default"
-              }
-            ],
-            "auth": {
-              "type": "noauth"
-            },
-            "description": "",
-            "url": {
-              "raw": "http://localhost:8080/payments",
-              "protocol": "http",
-              "host": [
-                "localhost:8080"
-              ],
-              "path": [
-                "payments"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"subscriptionId\": 1,\n  \"amount\": 909.99,\n  \"method\": \"DEBIT_CARD\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
-        },
-        {
-          "name": "Busca pagamentos",
+          "name": "Relatório de assinaturas",
           "event": [],
           "request": {
             "method": "GET",
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjc4OTkwOCwiZXhwIjoxNzUyNzkzNTA4fQ.PnbrpmUuJQAujAVltMG5ENDyNnuP-6evaVla97qTi9s",
-                "disabled": false,
-                "type": "default"
-              },
-              {
-                "key": "payment-id",
-                "value": "512f67a6-d985-4991-984c-d1769acdbf8a",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjg1ODg3MCwiZXhwIjoxNzUyODYyNDcwfQ.bYcBE7_WS-rZQyTvKd-fZGKrzCu8U1OtX2z11thgHTA",
                 "disabled": false,
                 "type": "default"
               }
@@ -352,89 +552,30 @@
             },
             "description": "",
             "url": {
-              "raw": "http://localhost:8080/payments/find",
+              "raw": "http://localhost:8080/subscriptions/report?clientId=7&startDate=2025-07-15T00:00:00&endDate=2025-07-19T00:00:00",
               "protocol": "http",
               "host": [
                 "localhost:8080"
               ],
               "path": [
-                "payments",
-                "find"
+                "subscriptions",
+                "report"
               ],
-              "query": [],
-              "variable": []
-            }
-          }
-        },
-        {
-          "name": "Busca todos pagamentos",
-          "event": [],
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjc4OTkwOCwiZXhwIjoxNzUyNzkzNTA4fQ.PnbrpmUuJQAujAVltMG5ENDyNnuP-6evaVla97qTi9s",
-                "disabled": false,
-                "type": "default"
-              }
-            ],
-            "auth": {
-              "type": "noauth"
-            },
-            "description": "",
-            "url": {
-              "raw": "http://localhost:8080/payments",
-              "protocol": "http",
-              "host": [
-                "localhost:8080"
-              ],
-              "path": [
-                "payments"
-              ],
-              "query": [],
-              "variable": []
-            }
-          }
-        },
-        {
-          "name": "Atualiza status de uma pagamento",
-          "event": [],
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1Mjc4OTkwOCwiZXhwIjoxNzUyNzkzNTA4fQ.PnbrpmUuJQAujAVltMG5ENDyNnuP-6evaVla97qTi9s",
-                "disabled": false,
-                "type": "default"
-              }
-            ],
-            "auth": {
-              "type": "noauth"
-            },
-            "description": "",
-            "url": {
-              "raw": "http://localhost:8080/payments/update",
-              "protocol": "http",
-              "host": [
-                "localhost:8080"
-              ],
-              "path": [
-                "payments",
-                "update"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{ \n  \"id\": \"512f67a6-d985-4991-984c-d1769acdbf8a\",\n  \"status\": \"APPROVED\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "query": [
+                {
+                  "key": "clientId",
+                  "value": "7"
+                },
+                {
+                  "key": "startDate",
+                  "value": "2025-07-15T00:00:00"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2025-07-19T00:00:00"
                 }
-              }
+              ],
+              "variable": []
             }
           }
         }
